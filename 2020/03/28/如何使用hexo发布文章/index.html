@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>如何使用hexo发布文章 | Jeaven Wong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言​    个人博客的好处多多，不仅可以记录下自己的学习过程中的踩坑经历，也可以写下自己的所思所想。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用hexo发布文章">
+<meta property="og:url" content="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:site_name" content="Jeaven Wong">
+<meta property="og:description" content="前言​    个人博客的好处多多，不仅可以记录下自己的学习过程中的踩坑经历，也可以写下自己的所思所想。">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/more_essay_test.JPG">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/more_essay_show.JPG">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/hexo_server_demo.JPG">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/chrome_access_demo.JPG">
+<meta property="article:published_time" content="2020-03-28T00:44:52.000Z">
+<meta property="article:modified_time" content="2020-03-29T02:47:10.795Z">
+<meta property="article:author" content="Jeaven Wong">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="发布博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/more_essay_test.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="Jeaven Wong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jeaven Wong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Talk is cheap. Show me the code.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-如何使用hexo发布文章" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/" class="article-date">
+  <time datetime="2020-03-28T00:44:52.000Z" itemprop="datePublished">2020-03-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何使用hexo发布文章
+    </h1>
+  
+
+      </header>
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h6 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h6><p>​    个人博客的好处多多，不仅可以记录下自己的学习过程中的踩坑经历，也可以写下自己的所思所想。</p>
+<a id="more"></a>
+
+<p>搭建博客的方式其实很多，比如，本人是主攻 Java Web后端方向，可以采用 Spring Boot + MyBatis + Mysql + Docker 来搭建博客后台，用 jQuery/Bootstrap/Vue.js + node.js 来做博客的前台，这样的技术栈来实现一个单机版的个人博客的难度应该不会很大，主要就是付出时间和精力来coding 和 debug。但是考虑到要配置部署博客，购买服务器、域名，甚至购买HTTPS的证书等，这些都是需要投入钱和时间来做，出了问题还得定位问题来 debug，还得做好博客备份。所以个人感觉要维护一个高质量的个人博客要花费很多精力和金钱，这性价比并不高。</p>
+<p>​    国内有很多优秀的博客平台，博客园 / CSDN  等，CSDN 不仅广告多，而且这几年质量下滑的严重，博客园允许个人定制页面的样式，但是定制受限，往往也不够简洁。出于想要做一个没有侧边栏广告且简洁明了的个人博客的初衷，选定了 github pages 来托管自己的静态博客，可是国内访问 github 的速度受限，为了体验更好于是选择了相似的国产的 gitee pages 来托管博客，Hexo 是一个比较成熟的博客框架，gitee pages 也支持，可以实现静态博客的 SSR (Server Side Render)。</p>
+<p>​    本文就记录下日常使用hexo的方式。</p>
+<p>首先在本地安装node.js，之后安装包管理器npm，这里省略具体过程</p>
+<ol>
+<li><p>使用npm下载hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用hexo生成博客根目录的source/_post目录下新的markdown文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new</span><br></pre></td></tr></table></figure>
+
+<p> 或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑生成的 markdown 文件的内容即可，这里推荐 Typora 软件</p>
+<p>在 blog 根目录下的 _config.yml 把 post_asset_foler:false 修改为 true 后，上一步会生成一个同名文件夹，在里面可以放置图片素材</p>
+<p>因为下载了如下相关插件，所以引用直接是图片名称即可，如 test.jpg 而不是 xxx/test.jpg</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/7ym0n/hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+
+<p>记得在发布文章的时候如果想要在主页显示折叠的文章，记得在 md 文件里添加下面的标签</p>
+<p>hex o提供的   <code>&lt;!-- more --&gt;</code>  </p>
+<p><em>注意：不能写在除了标题外的正文第一行，否则无效</em></p>
+<p><img src="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/more_essay_test.JPG" alt="折叠文章操作图"></p>
+<p><img src="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/more_essay_show.JPG" alt="折叠文章效果图"></p>
+</li>
+<li><p>清空之前生成的 css 等样式文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生产新的样式文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>部署文章同步到 gitee pages 仓库的 {username} 仓库上即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果想要在本地预览的话，可以执行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p> 或者</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>我在 gitee 新建了一个 <a href="https://gitee.com/jeavenwong/blog" target="_blank" rel="noopener">repo</a> 来同步自己本地的 blog 文件，所以得记得及时 push.</p>
+<p>如下图所示</p>
+<p><img src="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/hexo_server_demo.JPG" alt="hexo_server_demo"></p>
+<p>之后在浏览器输入localhost:4000即可在本地预览博客</p>
+<p><img src="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/chrome_access_demo.JPG" alt="chrome_access_demo"></p>
+</li>
+</ol>
+<p>这里吐槽一下，虽然在国内访问 gitee 比 github 快，但是 gitee 个人版每次从本地同步博客之后，都需要在 <a href="https://gitee.com/jeavenwong/jeavenwong" target="_blank" rel="noopener">gitee page 应用</a> 仓库里手动点击 pages 服务来进行更新。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/" data-id="ck9xl8iff000j7kf6e51gfehz" class="article-share-link">Share</a>
+      
+	  
+	 
+	  
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" rel="tag">发布博客</a></li></ul>
+
+	  
+    </footer>
+  </div>
+
+</article>
+
+<!--使用valine插件做评论系统 + leancloud存储评论-->
+
+  
+    <div id="vcomments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'GKXpn9T6BfC6PrilvD0U2NV6-gzGzoHsz',
+            appKey: 'yNoAcJhKhUBz21HU2D9Dpp6R',
+            notify:false, 
+            verify:true, 
+            visitor:true,
+            avatar:'mm', 
+            placeholder: '在这里留言...' 
+        })
+    </script>
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Aspect/" rel="tag">Aspect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" rel="tag">发布博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">词法分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" rel="tag">默认hexo模板landscape</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Aspect/" style="font-size: 10px;">Aspect</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">发布博客</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 10px;">编译原理</a> <a href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" style="font-size: 10px;">词法分析</a> <a href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" style="font-size: 10px;">默认hexo模板landscape</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/">基于DFA的词法分析程序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/29/Spring-Aspect%E5%A4%B1%E6%95%88%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/">Spring Aspect失效排查记录</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/28/simple-study-the-principle-of-git/">simple study the principle of git</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/">Use Valine and LeanCloud to build Comment System</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/">如何使用hexo发布文章</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Jeaven Wong
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Use Valine and LeanCloud to build Comment System | Jeaven Wong</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原始的hexo的模板landscape是没有评论系统的，我们可以自己定制一个评论系统。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Use Valine and LeanCloud to build Comment System">
+<meta property="og:url" content="http://yoursite.com/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/index.html">
+<meta property="og:site_name" content="Jeaven Wong">
+<meta property="og:description" content="原始的hexo的模板landscape是没有评论系统的，我们可以自己定制一个评论系统。">
+<meta property="og:image" content="http://yoursite.com/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/valine_demo.JPG">
+<meta property="article:published_time" content="2020-03-28T06:57:44.000Z">
+<meta property="article:modified_time" content="2020-03-28T13:52:46.992Z">
+<meta property="article:author" content="Jeaven Wong">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/valine_demo.JPG">
+  
+    <link rel="alternate" href="/atom.xml" title="Jeaven Wong" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jeaven Wong</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Talk is cheap. Show me the code.</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Use-Valine-and-LeanCloud-to-build-Comment-System" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/" class="article-date">
+  <time datetime="2020-03-28T06:57:44.000Z" itemprop="datePublished">2020-03-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Use Valine and LeanCloud to build Comment System
+    </h1>
+  
+
+      </header>
+    
+	
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原始的hexo的模板landscape是没有评论系统的，我们可以自己定制一个评论系统。</p>
+<a id="more"></a>
+
+<p>可以使用 github 或者 gitee（码云）建一个第三方应用来做博客系统，但是样式不够简洁，而且评论者需要登录 github 或者 gitee账号，这里我们选用一个免费的开源博客系统 Valine，并且 Valine 默认使用云存储平台 LeanCloud 来做评论的存储，LeanCloud的开发版的存储是免费的。</p>
+<p>Valine 的初始配置详细见官网：</p>
+<p>注册 LeanCloud 并获得了 AppID 和 AppKey 之后就可以对 landscape 进行配置了。</p>
+<p>编辑 <code>/themes/landscape/layout/_partial/</code>目录下的<code>article.ejs</code>，将原本配置gitment时添加在最后的那段代码删掉，添加： </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (!index)&#123; %&gt;</span><br><span class="line">  &lt;% <span class="keyword">if</span> (post.comments)&#123; %&gt;</span><br><span class="line">    &lt;div id=<span class="string">"vcomments"</span>&gt;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script src="/</span><span class="regexp">/cdn1.lncld.net/</span><span class="keyword">static</span>/js/<span class="number">3.0</span><span class="number">.4</span>/av-min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;script src='//unpkg.com/valine/dist/Valine.min.js'&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">        new Valine(&#123;</span></span><br><span class="line"><span class="string">            el: '#vcomments',</span></span><br><span class="line"><span class="string">            appId: '你的appid',</span></span><br><span class="line"><span class="string">            appKey: '你的appkey',</span></span><br><span class="line"><span class="string">            notify:true, </span></span><br><span class="line"><span class="string">            verify:true, </span></span><br><span class="line"><span class="string">            visitor:true,</span></span><br><span class="line"><span class="string">            avatar:'mm', </span></span><br><span class="line"><span class="string">            placeholder: '嘻嘻嘻' </span></span><br><span class="line"><span class="string">        &#125;)</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">  &lt;% &#125; else &#123; %&gt;</span></span><br><span class="line"><span class="string">    &lt;div class="</span>vcomments<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">  &lt;% &#125; %&gt;</span></span><br><span class="line"><span class="string">&lt;% &#125; %&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>之后，用 hexo 重新编译然后上传到 gitee pages 即可。</p>
+<p>运行效果图如下：</p>
+<p><img src="/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/valine_demo.JPG" alt="效果图"></p>
+<p>参考链接：<a href="https://www.cnblogs.com/zmj97/p/10180732.html" target="_blank" rel="noopener">将hexo的评论系统由gitment改为Valine</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/" data-id="ck9xl8ieq00007kf67cq93s92" class="article-share-link">Share</a>
+      
+	  
+	 
+	  
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+
+	  
+    </footer>
+  </div>
+
+</article>
+
+<!--使用valine插件做评论系统 + leancloud存储评论-->
+
+  
+    <div id="vcomments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'GKXpn9T6BfC6PrilvD0U2NV6-gzGzoHsz',
+            appKey: 'yNoAcJhKhUBz21HU2D9Dpp6R',
+            notify:false, 
+            verify:true, 
+            visitor:true,
+            avatar:'mm', 
+            placeholder: '在这里留言...' 
+        })
+    </script>
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Aspect/" rel="tag">Aspect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" rel="tag">发布博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">词法分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" rel="tag">默认hexo模板landscape</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Aspect/" style="font-size: 10px;">Aspect</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">发布博客</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 10px;">编译原理</a> <a href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" style="font-size: 10px;">词法分析</a> <a href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" style="font-size: 10px;">默认hexo模板landscape</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/">基于DFA的词法分析程序</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/29/Spring-Aspect%E5%A4%B1%E6%95%88%E6%8E%92%E6%9F%A5%E8%AE%B0%E5%BD%95/">Spring Aspect失效排查记录</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/28/simple-study-the-principle-of-git/">simple study the principle of git</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/28/Use-Valine-and-LeanCloud-to-build-Comment-System/">Use Valine and LeanCloud to build Comment System</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0/">如何使用hexo发布文章</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Jeaven Wong
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
