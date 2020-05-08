@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-07T13:14:13.507Z</updated>
+  <updated>2020-05-08T02:35:48.387Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我的个人博客</title>
+    <link href="http://yoursite.com/2020/05/08/hello-world/"/>
+    <id>http://yoursite.com/2020/05/08/hello-world/</id>
+    <published>2020-05-08T03:02:55.902Z</published>
+    <updated>2020-05-08T02:35:48.387Z</updated>
+    
+    <content type="html"><![CDATA[<p>使用 gitee pages 或者 github pages 挂自己的博客的主要初衷，就是因为简洁可定制。</p><a id="more"></a><p>我喜欢看的两个大佬的博客，收藏一下 URL 。</p><p>第一个是 vczh ，江湖人称 “轮子哥”，他对编译原理理解的深度非常人所及，他的博客中关于编译原理的博文结合具体实例，写的很好。</p><p>链接：<a href="http://www.cppblog.com/vczh/" target="_blank" rel="noopener"> http://www.cppblog.com/vczh/ </a></p><p>第二个是王垠，非常有个性，争议也很大，对 PL 的研究非常深入，对计算机的一些知识的研究也很深入，会结合自己的理解进行一些输出，可以看看他的博文提高思想深度。</p><p>链接：<a href="http://www.yinwang.org/" target="_blank" rel="noopener"> http://www.yinwang.org/ </a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;使用 gitee pages 或者 github pages 挂自己的博客的主要初衷，就是因为简洁可定制。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="默认hexo模板landscape" scheme="http://yoursite.com/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/"/>
+    
+  </entry>
   
   <entry>
     <title>基于DFA的词法分析程序</title>
@@ -125,27 +146,6 @@
       <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
       <category term="发布博客" scheme="http://yoursite.com/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我的个人博客</title>
-    <link href="http://yoursite.com/2020/03/27/hello-world/"/>
-    <id>http://yoursite.com/2020/03/27/hello-world/</id>
-    <published>2020-03-27T14:35:33.423Z</published>
-    <updated>2020-05-08T02:35:48.387Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用 gitee pages 或者 github pages 挂自己的博客的主要初衷，就是因为简洁可定制。</p><a id="more"></a><p>我喜欢看的两个大佬的博客，收藏一下 URL 。</p><p>第一个是 vczh ，江湖人称 “轮子哥”，他对编译原理理解的深度非常人所及，他的博客中关于编译原理的博文结合具体实例，写的很好。</p><p>链接：<a href="http://www.cppblog.com/vczh/" target="_blank" rel="noopener"> http://www.cppblog.com/vczh/ </a></p><p>第二个是王垠，非常有个性，争议也很大，对 PL 的研究非常深入，对计算机的一些知识的研究也很深入，会结合自己的理解进行一些输出，可以看看他的博文提高思想深度。</p><p>链接：<a href="http://www.yinwang.org/" target="_blank" rel="noopener"> http://www.yinwang.org/ </a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;使用 gitee pages 或者 github pages 挂自己的博客的主要初衷，就是因为简洁可定制。&lt;/p&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="默认hexo模板landscape" scheme="http://yoursite.com/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/"/>
     
   </entry>
   
