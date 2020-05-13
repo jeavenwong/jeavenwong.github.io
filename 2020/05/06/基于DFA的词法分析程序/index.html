@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF.jpg">
 <meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg">
 <meta property="article:published_time" content="2020-05-06T04:18:56.000Z">
-<meta property="article:modified_time" content="2020-05-07T13:14:13.507Z">
+<meta property="article:modified_time" content="2020-05-13T09:22:32.013Z">
 <meta property="article:author" content="Jeaven Wong">
 <meta property="article:tag" content="编译原理">
 <meta property="article:tag" content="词法分析">
@@ -113,7 +113,7 @@
 <p><strong>自动分析工具</strong>:<br>主语言是java，可以玩一下antlr。</p>
 <h4 id="闲话"><a href="#闲话" class="headerlink" title="闲话"></a>闲话</h4><p>其实在学习生活过程中遇到编译知识的几率还是蛮高的（除了专业编译器研究人员和使用词法语法分析的工具外），比如，正则表达式，DFA（确定的有穷自动机）这些在一些常见算法（如KMP算法）里都多多少少会有所体现。再比如，在笔者本科的时候，数电里很经典的有穷状态机（FSM）其实就是 DFA，还有用 Verilog HDL 写 FPGA 的实验中经常需要自己构建有穷的状态，这也是 DFA 的应用。正则表达式就不用提了，应用就太广了，相信没有人没有接触过 RE（正则表达式）。</p>
 <p>为了简单起见，使用正则表达式来做字符串中关键字的匹配，以及使用 DFA 来分析词素构建 token 语素。词法分析结束之后我会选择 CFG（上下文无关语法）中最常见最简单的没有左递归的 LL(1) 型文法来做语法分析，做法尽可能的简单，可以选择直接基于数据表来做，也可能会使用递归下降法来做解析。语法分析结束可以输出一个语法分析树。</p>
-<p>知乎某位大佬曾经说过，如果一个程序员不是专门做编译器的开发工作，那他 对编译原理主要掌握以下几点就够用了：词法分析方面，掌握正则表达式，了解dfa/nfa。Parsing 方面，能读懂 BNF，知道AST，会写简单的递归下降 parser，会用 antlr 之类的 parser generator。 优化方面，知道现代编译器的优化能力有多强，知道如何配合编译器写出高效易读的代码，避免试图outsmart编译器。会实现简单的虚拟机（stack-based，不带GC），并把四则运算表达式翻译为虚拟机指令。</p>
+<p>知乎某位大佬曾经说过，如果一个程序员不是专门做编译器的开发工作，那他 对编译原理主要掌握以下几点就够用了：词法分析方面，掌握正则表达式，了解dfa/nfa。Parsing 方面，能读懂 BNF，知道AST，会写简单的递归下降 parser，会用 antlr 之类的 parser generator。 优化方面，知道现代编译器的优化能力有多强，知道如何配合编译器写出高效易读的代码，避免试图outsmart编译器。会实现简单的虚拟机（stack-based，不带GC），并把四则运算表达式翻译为虚拟机指令。<br>ANTLR是一个神器，关于ANTLR的入门教程：<br><a href="https://www.cntofu.com/book/115/readme.html" target="_blank" rel="noopener">https://www.cntofu.com/book/115/readme.html</a></p>
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>实现了一个四则运算的解释器，即仅支持 + - * / 等四个二元运算符，然后不支持定义变量，支持数字，包括浮点数和整数。 </p>
 <h4 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h4><h5 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h5><p>词法分析使用的是正则文法，也就是正则表达式，所以先写出需要使用的正则表达式，然后再根据正则表达式构造出 NFA ，之后再将NFA转化为 DFA ，依据  DFA  进行状态机的编码，就可以读入输入文件进行词法分析了。其实正则表达式构造 NFA 的算法是比较麻烦的，但是这里不支持保留字，标识符，标点符号等，所以分词比较简单，下面直接可以画出 DFA。</p>
 <p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/DFA.jpg" alt="DFA图示"></p>
@@ -139,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/" data-id="ck9xn1i9700055kf615okf7i5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/" data-id="cka550pbn0004ocf60b2f82kq" class="article-share-link">Share</a>
       
 	  
 	 
