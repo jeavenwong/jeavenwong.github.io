@@ -34,8 +34,7 @@
 <p>下图是 VM 程序执行指令的输出。</p>
 <p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt="运行结果"></p>
 <h4 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h4><p>我觉得整个过程中，写 DFA 来词法解析很死板，在实际中应该会基于正则表达式来进行 DFA 的生成，龙书那么复杂的过程其实也是用来写生成词法分析程序的工具。做语法分析的难点就是构造LL(1)文法，而且还得消除左递归，否则不能用递归下降法进行文法分析，还有更麻烦的语法分析的方法就是对语法进行Fisrt-Fellow集分析得到一个预测表（parser table），根据表来进行文法分析，输入是文法规则文件和表文件，相比较之下，递归下降法更加简单高效。这个项目非常简单，但作为简单实践下编译原理的理论知识还是可以的，麻雀虽小五脏俱全嘛。但是本项目其实只是做了编译器的前端，后端的代码优化和代码生成和汇编指令啥的对于我这样的后端程序员也很重要。</p>
-<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p>我将源代码放在了 gitee 上面，仓库链接如下。</p>
-<p><a href="https://gitee.com/jeavenwong/SimpleJInterpreter" target="_blank" rel="noopener">https://gitee.com/jeavenwong/SimpleJInterpreter</a></p>
+<h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p>我将源代码放在了 gitee 上面，仓库链接如下。<br><a href="https://gitee.com/jeavenwong/SimpleJInterpreter" target="_blank" rel="noopener">https://gitee.com/jeavenwong/SimpleJInterpreter</a></p>
 <p>我又基于 ANTLR 实现了四则运算的第二版，果然 ANTLR 这款 parser 生成器配合 Vistor 以及 Listener 两种 Parser Tree 的遍历方式很强大，还能够直接处理 LL(*) 文法的左递归。下面是第二版的源码仓库链接。<br><a href="https://gitee.com/jeavenwong/SimpleJInterpreterV2" target="_blank" rel="noopener">https://gitee.com/jeavenwong/SimpleJInterpreterV2</a>  </p>
 ]]></content>
       <tags>
