@@ -5,28 +5,29 @@
   
 
   
-  <title>基于DFA的词法分析程序 | Jeaven Wong</title>
+  <title>简单四则运算解释器的实现 | Jeaven Wong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="起因以前简单学过编译原理的理论知识，但是由于太过抽象，平时用到的机会也不多，所以很多都遗忘了，为了能简单拾起一些最最基本的知识，于是决定写一个 Lexer 程序和 Parser程序。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于DFA的词法分析程序">
-<meta property="og:url" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:title" content="简单四则运算解释器的实现">
+<meta property="og:url" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/index.html">
 <meta property="og:site_name" content="Jeaven Wong">
 <meta property="og:description" content="起因以前简单学过编译原理的理论知识，但是由于太过抽象，平时用到的机会也不多，所以很多都遗忘了，为了能简单拾起一些最最基本的知识，于是决定写一个 Lexer 程序和 Parser程序。">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/DFA.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F%E8%BE%93%E5%85%A5.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/tokens.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/AST.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/LL(1)%E6%96%87%E6%B3%95%E6%9E%84%E9%80%A0.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF.jpg">
-<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/DFA.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F%E8%BE%93%E5%85%A5.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/tokens.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/AST.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/LL(1)%E6%96%87%E6%B3%95%E6%9E%84%E9%80%A0.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF.jpg">
+<meta property="og:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg">
 <meta property="article:published_time" content="2020-05-06T04:18:56.000Z">
-<meta property="article:modified_time" content="2020-05-14T02:16:40.508Z">
+<meta property="article:modified_time" content="2020-05-18T23:53:50.746Z">
 <meta property="article:author" content="Jeaven Wong">
 <meta property="article:tag" content="编译原理">
 <meta property="article:tag" content="词法分析">
+<meta property="article:tag" content="语法分析">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/DFA.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/DFA.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Jeaven Wong" type="application/atom+xml">
   
@@ -79,9 +80,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-基于DFA的词法分析程序" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-实现简单的四则运算解释器" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/" class="article-date">
+    <a href="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/" class="article-date">
   <time datetime="2020-05-06T04:18:56.000Z" itemprop="datePublished">2020-05-06</time>
 </a>
     
@@ -93,7 +94,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      基于DFA的词法分析程序
+      简单四则运算解释器的实现
     </h1>
   
 
@@ -116,22 +117,22 @@
 <p>知乎某位大佬曾经说过，如果一个程序员不是专门做编译器的开发工作，那他 对编译原理主要掌握以下几点就够用了：词法分析方面，掌握正则表达式，了解dfa/nfa。Parsing 方面，能读懂 BNF，知道AST，会写简单的递归下降 parser，会用 antlr 之类的 parser generator。 优化方面，知道现代编译器的优化能力有多强，知道如何配合编译器写出高效易读的代码，避免试图outsmart编译器。会实现简单的虚拟机（stack-based，不带GC），并把四则运算表达式翻译为虚拟机指令。<br>ANTLR是一个神器，关于ANTLR的入门教程：<br><a href="https://www.cntofu.com/book/115/readme.html" target="_blank" rel="noopener">https://www.cntofu.com/book/115/readme.html</a></p>
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>实现了一个四则运算的解释器，即仅支持 + - * / 等四个二元运算符，然后不支持定义变量，支持数字，包括浮点数和整数。 </p>
 <h4 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h4><h5 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h5><p>词法分析使用的是正则文法，也就是正则表达式，所以先写出需要使用的正则表达式，然后再根据正则表达式构造出 NFA ，之后再将NFA转化为 DFA ，依据  DFA  进行状态机的编码，就可以读入输入文件进行词法分析了。其实正则表达式构造 NFA 的算法是比较麻烦的，但是这里不支持保留字，标识符，标点符号等，所以分词比较简单，下面直接可以画出 DFA。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/DFA.jpg" alt="DFA图示"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/DFA.jpg" alt="DFA图示"></p>
 <p>下面是词法分析程序的输入，也是整个程序的输入。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F%E8%BE%93%E5%85%A5.jpg" alt="词法分析程序输入"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F%E8%BE%93%E5%85%A5.jpg" alt="词法分析程序输入"></p>
 <p>下面是词法分析程序的输出，即 token（语素） 序列。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/tokens.jpg" alt="输出Token"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/tokens.jpg" alt="输出Token"></p>
 <h5 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h5><p>语法分析程序的输入是词法分析程序的输出，即 token 序列。</p>
 <p>不考虑语法制导翻译的话，语法分析输出的都应该是一颗抽象语法树 AST ，这个结构比较抽象。下面我手画一个。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/AST.jpg" alt="AST结构图"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/AST.jpg" alt="AST结构图"></p>
 <p>语法分析中，最麻烦的莫过于构造 LL(1) 文法了，如下图所示。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/LL(1)%E6%96%87%E6%B3%95%E6%9E%84%E9%80%A0.jpg" alt="LL(1)文法构造"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/LL(1)%E6%96%87%E6%B3%95%E6%9E%84%E9%80%A0.jpg" alt="LL(1)文法构造"></p>
 <p>语法分析中如果遇见语法错误会进行错误的提示，然后表明当前的代码是语法错误的，比如我刻意去掉上面输入的表达式中的右括号，程序结果如下图所示。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF.jpg" alt="语法错误"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/%E8%AF%AD%E6%B3%95%E9%94%99%E8%AF%AF.jpg" alt="语法错误"></p>
 <p>当语法分析正确后，表明我们的表达式是符合语法的，之后我们可以根据这颗 AST 来做任何操作，比如可以由前序遍历得到正序的token序列，后序遍历可以得到逆波兰表达式，可以用来模拟基于栈进行程序的执行。理论上，AST 可以转化为任何一种IR（中间表示），比如转化为 java 字节码，由 JVM 解释执行，也可以直接用 AST 解释执行。</p>
 <p>最后就是用代码简单的模拟一下 Stack-Based VM （这类虚拟机的代表就是JVM），然后基于栈来执行指令代码，即用逆波兰表达式进和栈进行计算。</p>
 <p>下图是 VM 程序执行指令的输出。</p>
-<p><img src="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt="运行结果"></p>
+<p><img src="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.jpg" alt="运行结果"></p>
 <h4 id="感悟"><a href="#感悟" class="headerlink" title="感悟"></a>感悟</h4><p>我觉得整个过程中，写 DFA 来词法解析很死板，在实际中应该会基于正则表达式来进行 DFA 的生成，龙书那么复杂的过程其实也是用来写生成词法分析程序的工具。做语法分析的难点就是构造LL(1)文法，而且还得消除左递归，否则不能用递归下降法进行文法分析，还有更麻烦的语法分析的方法就是对语法进行Fisrt-Fellow集分析得到一个预测表（parser table），根据表来进行文法分析，输入是文法规则文件和表文件，相比较之下，递归下降法更加简单高效。这个项目非常简单，但作为简单实践下编译原理的理论知识还是可以的，麻雀虽小五脏俱全嘛。但是本项目其实只是做了编译器的前端，后端的代码优化和代码生成和汇编指令啥的对于我这样的后端程序员也很重要。</p>
 <h4 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h4><p>我将源代码放在了 gitee 上面，仓库链接如下。<br><a href="https://gitee.com/jeavenwong/SimpleJInterpreter" target="_blank" rel="noopener">https://gitee.com/jeavenwong/SimpleJInterpreter</a></p>
 <p>我又基于 ANTLR 实现了四则运算的第二版，果然 ANTLR 这款 parser 生成器配合 Vistor 以及 Listener 两种 Parser Tree 的遍历方式很强大，还能够直接处理 LL(*) 文法的左递归。下面是第二版的源码仓库链接。<br><a href="https://gitee.com/jeavenwong/SimpleJInterpreterV2" target="_blank" rel="noopener">https://gitee.com/jeavenwong/SimpleJInterpreterV2</a>  </p>
@@ -139,13 +140,13 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/" data-id="ckacmiaru0005s8f6fjcg3b9v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/" data-id="ckad5eh0z0007cwf6h9yfgz1j" class="article-share-link">Share</a>
       
 	  
 	 
 	  
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">词法分析</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">词法分析</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">语法分析</a></li></ul>
 
 	  
     </footer>
@@ -185,7 +186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Aspect/" rel="tag">Aspect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" rel="tag">发布博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">词法分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" rel="tag">默认hexo模板landscape</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Aspect/" rel="tag">Aspect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/" rel="tag">markdown</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" rel="tag">发布博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">词法分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">语法分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" rel="tag">默认hexo模板landscape</a></li></ul>
     </div>
   </div>
 
@@ -195,7 +196,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Aspect/" style="font-size: 10px;">Aspect</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">发布博客</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 10px;">编译原理</a> <a href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" style="font-size: 10px;">词法分析</a> <a href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" style="font-size: 10px;">默认hexo模板landscape</a>
+      <a href="/tags/Aspect/" style="font-size: 10px;">Aspect</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/%E5%8F%91%E5%B8%83%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">发布博客</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 10px;">编译原理</a> <a href="/tags/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" style="font-size: 10px;">词法分析</a> <a href="/tags/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" style="font-size: 10px;">语法分析</a> <a href="/tags/%E9%BB%98%E8%AE%A4hexo%E6%A8%A1%E6%9D%BFlandscape/" style="font-size: 10px;">默认hexo模板landscape</a>
     </div>
   </div>
 
@@ -221,7 +222,7 @@
           </li>
         
           <li>
-            <a href="/2020/05/06/%E5%9F%BA%E4%BA%8EDFA%E7%9A%84%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E7%A8%8B%E5%BA%8F/">基于DFA的词法分析程序</a>
+            <a href="/2020/05/06/%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%E8%A7%A3%E9%87%8A%E5%99%A8/">简单四则运算解释器的实现</a>
           </li>
         
           <li>
