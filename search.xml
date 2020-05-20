@@ -37,12 +37,23 @@
 
 <p><strong>脑图（mind map）</strong></p>
 <p>Typora 通过 <a href="https://mermaid-js.github.io/mermaid/#/" target="_blank" rel="noopener">mermaid 插件</a> 支持了sequence 图，这个插件很强大，也可以画时序图和流程图。举个简单的例子，如下。</p>
-<p><img src="/2020/05/18/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E5%BC%BA%E5%A4%A7%E7%9A%84markdown%E8%BD%AF%E4%BB%B6Typora/mindmap.png" alt="mind map demo"></p>
+<p><img src="/2020/05/18/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E5%BC%BA%E5%A4%A7%E7%9A%84markdown%E8%BD%AF%E4%BB%B6Typora/mindmap1.png" alt="mind map demo"></p>
 <p>实现代码如下，快捷方式就是打 “ ``` “  + “mermaid” + 回车  </p>
 <figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A(Java后端技术栈) --&gt; B(编程基础)</span><br><span class="line">B --&gt; b0(数据结构)</span><br><span class="line">B --&gt; b1(操作系统)</span><br><span class="line">B --&gt; b2(计算机网络)</span><br><span class="line">B --&gt; b3(编译原理)</span><br><span class="line">B --&gt; b4(计算机组成原理)</span><br><span class="line"></span><br><span class="line">A --&gt; C(编程工具)</span><br><span class="line">C --&gt; a0(Intellij IDEA)</span><br><span class="line">C --&gt; a1(Eclipse)</span><br><span class="line">C --&gt; a2(VS Code)</span><br><span class="line">C --&gt; a3(编辑器 + 编译器)</span><br><span class="line"></span><br><span class="line">A --&gt; D(开发框架)</span><br><span class="line">D --&gt; d0(Spring Boot)</span><br><span class="line">D --&gt; d1(Spring Cloud)</span><br><span class="line">D --&gt; d2(Dubbo)</span><br></pre></td></tr></table></figure>
 
 
 
+<p><strong>排版（layout）</strong></p>
+<p>还有写作时候需要的排版，因为 Typora 相当于一个浏览器所以可以使用 html 的语法，所以基本上是熟悉 html 可以实现任何你想要实现的排版效果。下面举一个图片并列排版的例子。</p>
+<p>因为 markdown 默认的插入图片的代码无法调整图片的大小和位置，所以可以采用 html 中的 img 标签。</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">...</span>](<span class="link">....</span>)</span><br></pre></td></tr></table></figure>
+
+<p>效果图如下</p>
+<p><img src="/2020/05/18/%E6%8E%A8%E8%8D%90%E4%B8%80%E6%AC%BE%E5%BC%BA%E5%A4%A7%E7%9A%84markdown%E8%BD%AF%E4%BB%B6Typora/pic_layout_demo.png" alt="pic_layout_demo"></p>
+<p>上述效果实现代码如下</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">"half"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"C:/Users/jeave/Desktop/pic/123.jpg"</span> <span class="attr">width</span>=<span class="string">"350px"</span> <span class="attr">height</span>=<span class="string">"300px"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"C:/Users/jeave/Desktop/pic/vs.jpg"</span> <span class="attr">width</span>=<span class="string">"350px"</span> <span class="attr">height</span>=<span class="string">"300px"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">figure</span> <span class="attr">class</span>=<span class="string">"half"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"C:/Users/jeave/Desktop/pic/image.jpg"</span> <span class="attr">width</span>=<span class="string">"350px"</span> <span class="attr">height</span>=<span class="string">"300px"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"C:/Users/jeave/Desktop/pic/vs1.jpg"</span> <span class="attr">width</span>=<span class="string">"350px"</span> <span class="attr">height</span>=<span class="string">"300px"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过 figure 标签的 half 样式可以达到图片并列排版的目的，中间的文字在空行里打即可。</p>
 <p>总之作为一名程序员，熟悉 markdown 是必须的事情，熟练使用 markdown 无疑会带来很多便利，增加很多效率。</p>
 ]]></content>
       <tags>
