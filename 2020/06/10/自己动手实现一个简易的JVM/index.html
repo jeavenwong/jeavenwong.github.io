@@ -5,26 +5,20 @@
   
 
   
-  <title>simple study the principle of git | Jeaven Wong</title>
+  <title>自己动手实现一个简易的JVM | Jeaven Wong</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="git 作为程序员经常使用的分布式版本控制工具，知其然也应该知其所以然，所以我们来浅谈下git的原理。 申明：本文不是原创，更多的记录下 git 的知识，文章尾部有参考文章链接。">
+  <meta name="description" content="看过了一遍深入理解 JVM，我决定动手实践一下，于是花了一周左右的时间写了一个半残的玩具 JVM，但也深刻体会了 JVM 的一些知识，加深了我对 JVM 的理解。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="simple study the principle of git">
-<meta property="og:url" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/index.html">
+<meta property="og:title" content="自己动手实现一个简易的JVM">
+<meta property="og:url" content="http://yoursite.com/2020/06/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%9A%84JVM/index.html">
 <meta property="og:site_name" content="Jeaven Wong">
-<meta property="og:description" content="git 作为程序员经常使用的分布式版本控制工具，知其然也应该知其所以然，所以我们来浅谈下git的原理。 申明：本文不是原创，更多的记录下 git 的知识，文章尾部有参考文章链接。">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/git_workspace_show.JPG">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/p1s1.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/p1s2.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/p1s3.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/p1s4.png">
-<meta property="og:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/p2s3.gif">
-<meta property="article:published_time" content="2020-03-28T08:26:12.000Z">
-<meta property="article:modified_time" content="2020-03-28T09:29:33.502Z">
+<meta property="og:description" content="看过了一遍深入理解 JVM，我决定动手实践一下，于是花了一周左右的时间写了一个半残的玩具 JVM，但也深刻体会了 JVM 的一些知识，加深了我对 JVM 的理解。">
+<meta property="og:image" content="http://yoursite.com/2020/06/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%9A%84JVM/JVMSTRUCTURE.png">
+<meta property="article:published_time" content="2020-06-10T14:59:14.000Z">
+<meta property="article:modified_time" content="2020-06-10T23:23:03.694Z">
 <meta property="article:author" content="Jeaven Wong">
-<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/git_workspace_show.JPG">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%9A%84JVM/JVMSTRUCTURE.png">
   
     <link rel="alternate" href="/atom.xml" title="Jeaven Wong" type="application/atom+xml">
   
@@ -77,10 +71,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-simple-study-the-principle-of-git" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-自己动手实现一个简易的JVM" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/28/simple-study-the-principle-of-git/" class="article-date">
-  <time datetime="2020-03-28T08:26:12.000Z" itemprop="datePublished">2020-03-28</time>
+    <a href="/2020/06/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%9A%84JVM/" class="article-date">
+  <time datetime="2020-06-10T14:59:14.000Z" itemprop="datePublished">2020-06-10</time>
 </a>
     
   </div>
@@ -91,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      simple study the principle of git
+      自己动手实现一个简易的JVM
     </h1>
   
 
@@ -100,53 +94,53 @@
 	
     <div class="article-entry" itemprop="articleBody">
       
-        <p>git 作为程序员经常使用的分布式版本控制工具，知其然也应该知其所以然，所以我们来浅谈下git的原理。</p>
-<p><em>申明：本文不是原创，更多的记录下 git 的知识，文章尾部有参考文章链接。</em></p>
+        <p>看过了一遍深入理解 JVM，我决定动手实践一下，于是花了一周左右的时间写了一个半残的玩具 JVM，但也深刻体会了 JVM 的一些知识，加深了我对 JVM 的理解。</p>
 <a id="more"></a>
 
-<p>我们经常使用的命令有如下几个：</p>
-<p><code>git pull</code></p>
-<p><code>git clone</code></p>
-<p><code>git add</code> </p>
-<p><code>git commit</code> </p>
-<p><code>git push</code></p>
-<p><code>...</code></p>
-<p>那我们就选择几个关键且常用的命令来探究下内部的原理。</p>
-<p>git 的基本对象有三个，blob 对象，tree 对象和 commit 对象，这个可以了解下。</p>
-<p>git 的工作空间，暂存区和git仓库等概念可以自行了解下，如图所示。</p>
-<p><img src="/2020/03/28/simple-study-the-principle-of-git/git_workspace_show.JPG" alt="git_workspace_show"></p>
-<p>这是一个使用 git 管理的项目目录，你可以认为，其中 .git 目录就是本地 git 仓库。而 .git 目录下的index 就是工作暂存区。目录中除 .git 以外的空间就是用户工作目录，是用户在操作系统的文件目录下可以实实在在操作的文件集。</p>
-<p>假设工作空间里有我们创建编辑好的各个文件，当我们执行 <code>git add .</code>命令后，git 本地仓库中会多出来一些 Blob 对象。</p>
-<p><img src="/2020/03/28/simple-study-the-principle-of-git/p1s1.png" alt="blob object"></p>
-<p>这些 blob 对象的内容是对用户空间里文件内容进行二进制加密压缩，而 blob 对象的名字就是文件内容的 sha1 算法得到大的 hash 值（这个也是每个 blob 对象唯一的ID）。</p>
-<p>接着，我们执行 <code>git commit -m &#39;test&#39;</code>命令。</p>
-<p><img src="/2020/03/28/simple-study-the-principle-of-git/p1s2.png" alt="tree object"></p>
-<p>执行完 <code>git commit</code>命令后，首先会在 git 仓库里创建一个对应当前 blob 对象的 目录结构的 tree  对象。tree 对象的内容是一个目录索引，存放的是指向的各个 blob 对象的 ID ，还有 blob 对象对应的工作空间文件的名字和权限等信息。tree 对象的 ID 就是 tree 对象的内容的 hash 值。</p>
-<p>然后，git 还会在 git 仓库里创建一个 commit 对象。</p>
-<p><img src="/2020/03/28/simple-study-the-principle-of-git/p1s3.png" alt="commit object"></p>
-<p>这个 commit 对象可以看作是当前项目的一个快照（snapshot），每个 commit 对象里都对应着一个版本，实际上，git 就是通过操作 “commit 链” 来进行版本的切换的。commit 对象里存放的是 tree 对象的信息，当前认证的作者的信息，提交者的信息以及提交 commit 的内容等。commit 对象的 ID 是commit 对象内容的 hash 值。</p>
-<p>当然，如下图所示，git 对 commit 的操作是通过分支来进行的，所以会有分支来指向 commit 对象，master 默认是主分支。</p>
-<p><img src="/2020/03/28/simple-study-the-principle-of-git/p1s4.png" alt="head_master_show"></p>
-<p>至此，git 的基本原理就大致略知一二了， git是储存一个文件的内容、目录结构、commit信息和分支的。<strong>其本质上是一个key-value的数据库加上默克尔树形成的有向无环图（DAG）</strong> ，对 git 的版本控制就是在 ”commit 链“上来回移动。</p>
-<p>下图展示了 git 操作的完整过程。</p>
-<p><img src="/2020/03/28/simple-study-the-principle-of-git/p2s3.gif" alt="dynamic process of git"></p>
-<p>非常有意思的是，git 采用默克尔树的结构可以防止被人篡改文件，任何人想要更改其中某个文件而不被其他人发现的话，就必须得篡改 git 仓库中所有的文件，因为所有的文件的 ID 也就是 hash 值都是关联在一起。当然，如果有人对你远端的 git中央仓库 执行了 <code>git pull</code>  或者 <code>git clone</code> 命令，那他就有了一个完整的未被篡改的 git 仓库，这样就构成了分布式。这样的设计也决定了基本没人可以恶意篡改一个有影响力的 git 仓库，即使未经说明篡改了历史被人发现，那也会遭到别人的鄙视。</p>
-<p>git 的原理其实很复杂，指令也相当繁杂，如果想要深入学习 git 的原理，那就得花更多得时间去看书和思考。</p>
-<p>大家一致认同的剖析 git 原理的好书，<a href="https://book.douban.com/subject/3420144/" target="_blank" rel="noopener">《Pro Git》</a></p>
-<p>本文基本是全部借鉴了 <a href="https://www.lzane.com/" target="_blank" rel="noopener">lazne大佬</a>的这篇文章中的图。这篇文章讲的深入浅出，<a href="https://www.lzane.com/tech/git-internal/" target="_blank" rel="noopener">参考文章传送门</a>。</p>
-<p>还有bilibili讲解的视频：<a href="https://www.bilibili.com/video/BV1RJ411X7kh" target="_blank" rel="noopener">探究git原理</a></p>
 
+<h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>学习 JVM，用 Java 写一个可以跑的起来的 JVM 玩具，目前看来，只能算是半残的玩具…</p>
+<p>项目地址：<a href="https://gitee.com/jeavenwong/SimpleJVM" target="_blank" rel="noopener">SimpleJVM</a></p>
+<h4 id="JVM-的架构图"><a href="#JVM-的架构图" class="headerlink" title="JVM 的架构图"></a>JVM 的架构图</h4><p><img src="/2020/06/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%9A%84JVM/JVMSTRUCTURE.png" alt="JVMSTRUCTURE"></p>
+<h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><ul>
+<li>操作系统: Windows 10 </li>
+<li>jdk: Zulu OpenJDK 1.8.0_252</li>
+<li>build: Maven 3.3.9</li>
+</ul>
+<h4 id="模块介绍"><a href="#模块介绍" class="headerlink" title="模块介绍"></a>模块介绍</h4><ul>
+<li>jvm-principle 模块是一个简易的虚拟机指令执行方式的demo，也是虚拟机最核心的逻辑。实现了 stack-based,rgister-based,stack and resgister hybrid 这三种方式的指令执行方式。</li>
+<li>jvm-core 模块计划实现 jvm 读取 classfile 进行解析，实现类加载机制，根据字节码来解释执行。</li>
+<li>jvm-tools 模块计划实现一些额外的功能，比如支持 AOT 编译，将源代码编译成机器码；以及 JIT 编译，将字节码编译成机器码。</li>
+<li>因为实现 GC 的性价比太低，所以就看书学习吧，不实现了。（也没时间实现）</li>
+<li>如果做的快的话，可以用 ANTLR 实现 java 编译器前端 javac（应该没时间实现了）</li>
+</ul>
+<h4 id="预计实现功能"><a href="#预计实现功能" class="headerlink" title="预计实现功能"></a>预计实现功能</h4><ul>
+<li>实现 classfile 的解析。(50％)</li>
+<li>实现类加载机制。(40％)</li>
+<li>实现字节码的解释执行。(30％)</li>
+<li>实现多线程。(0％) </li>
+<li>实现 jvm-tools 的功能。(0％)</li>
+</ul>
+<h4 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h4><p>花了一周左右的时间，我写的 JVM 太渣了，没有肝下去，只能算搭了一个简易的框架demo出来，只能运行最最最简单的字节码，如果大家想要体会下动手写  JVM 的快感，可以参考大佬的代码，当然也可以参考我的代码（如果你看的下去可以重构）。</p>
+<ul>
+<li>目前只实现了屈指可数的简单的指令，复杂的指令，比如 invokevirtual, getstatic都没有实现，当然实现完全是体力活，没有时间做了，以后有机会补上吧。</li>
+<li>深刻理解了 JVM 方法调用的过程，虚拟机栈，栈帧，操作数栈，局部变量表。</li>
+<li>简单模拟了类加载的双亲委派机制，感觉很简单。</li>
+<li>体会了 native 方法实现原理。</li>
+<li>没有实现类的构造方法的执行、类的静态变量初始化、静态块的初始化、父类和接口的方法调用等，肝不动。</li>
+<li>没有实现 rt.jar 中的类以及一些常见的类，没有时间肝。</li>
+<li>很想自己从 javac 编译器前端一直写到后端 JIT，太可惜了，以后有机会再补上吧。</li>
+</ul>
+<h4 id="主要参考"><a href="#主要参考" class="headerlink" title="主要参考"></a>主要参考</h4><p><a href="https://gitee.com/guxingke" target="_blank" rel="noopener">孤星可</a>  大佬开源的项目 <a href="https://gitee.com/guxingke/mini-jvm/" target="_blank" rel="noopener">mini-jvm</a></p>
+<h4 id="少一些功利主义的追求，多一些不为什么的执著，祝大家都能实现自己的梦想！！！"><a href="#少一些功利主义的追求，多一些不为什么的执著，祝大家都能实现自己的梦想！！！" class="headerlink" title="少一些功利主义的追求，多一些不为什么的执著，祝大家都能实现自己的梦想！！！"></a>少一些功利主义的追求，多一些不为什么的执著，祝大家都能实现自己的梦想！！！</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/28/simple-study-the-principle-of-git/" data-id="ckc8xrs8w000004f6cj78740h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/06/10/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E6%98%93%E7%9A%84JVM/" data-id="ckc8xrs9l000d04f626zjaj8f" class="article-share-link">Share</a>
       
 	  
 	 
 	  
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
-
 	  
     </footer>
   </div>
